@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>나만의 영어 단어장</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff; --bg2: #f5f5f3; --bg3: #eeece8;
+      --text: #1a1a18; --text2: #6b6b67; --text3: #a3a39f;
+      --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.22);
+      --green: #1D9E75; --green-dark: #0F6E56;
+      --red: #E24B4A; --amber: #EF9F27;
+      --radius: 8px; --radius-lg: 12px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1c1c1a; --bg2: #252523; --bg3: #2e2e2b;
+        --text: #f0ede8; --text2: #9a9994; --text3: #5c5c59;
+        --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.2);
+      }
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg3); color: var(--text); min-height: 100vh; padding: 2rem 1rem; }
+    .container { max-width: 760px; margin: 0 auto; background: var(--bg); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 2rem; }
+
+    /* header */
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
+    h1 { font-size: 20px; font-weight: 500; }
+
+    /* tabs */
+    .tabs { display: flex; gap: 4px; margin-bottom: 1.25rem; border-bottom: 0.5px solid var(--border); }
+    .tab { padding: 7px 16px; font-size: 13px; border: none; background: none; cursor: pointer; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -0.5px; font-family: inherit; transition: color 0.15s; }
+    .tab.active { color: var(--green); border-bottom-color: var(--green); font-weight: 500; }
+    .tab:hover:not(.active) { color: var(--text); }
+
+    /* day selector */
+    .day-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+    .day-bar label { font-size: 13px; color: var(--text2); white-space: nowrap; flex-shrink: 0; }
+    .day-scroll { display: flex; gap: 6px; overflow-x: scroll; padding-bottom: 6px; flex: 1; min-width: 0; scrollbar-width: thin; scrollbar-color: var(--border2) transparent; }
+    .day-scroll::-webkit-scrollbar { height: 4px; }
+    .day-scroll::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+    .day-scroll::-webkit-scrollbar-track { background: transparent; }
+    .day-btn { flex-shrink: 0; padding: 4px 11px; font-size: 12px; border-radius: 20px; border: 0.5px solid var(--border2); background: var(--bg); color: var(--text2); cursor: pointer; font-family: inherit; transition: all 0.15s; white-space: nowrap; }
+    .day-btn:hover { background: var(--bg2); color: var(--text); }
+    .day-btn.active { background: var(--green); color: #fff; border-color: var(--green); font-weight: 500; }
+    .day-btn.has-words { border-color: var(--green); color: var(--green); }
+    .day-btn.has-words.active { background: var(--green); color: #fff; }
+
+    /* add form */
+    .add-form { display: flex; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+    .add-form input, .add-form select { padding: 9px 13px; border: 0.5px solid var(--border2); border-radius: var(--radius); font-size: 14px; background: var(--bg); color: var(--text); outline: none; transition: border-color 0.15s; font-family: inherit; }
+    .add-form input { flex: 1; min-width: 100px; }
+    .add-form select { min-width: 90px; cursor: pointer; }
+    .add-form input:focus, .add-form select:focus { border-color: var(--green); }
+    .add-form input::placeholder { color: var(--text3); }
+    .btn { padding: 9px 16px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; white-space: nowrap; font-family: inherit; transition: background 0.15s; }
+    .btn:hover { background: var(--bg2); }
+    .btn-green { background: var(--green); color: #fff; border-color: var(--green); }
+    .btn-green:hover { background: var(--green-dark); border-color: var(--green-dark); }
+    .hint { font-size: 12px; color: var(--text3); margin-bottom: 1.25rem; }
+
+    /* search */
+    .search-wrap { position: relative; margin-bottom: 1rem; }
+    .search-wrap input { width: 100%; padding: 9px 13px 9px 38px; border: 0.5px solid var(--border2); border-radius: var(--radius); font-size: 14px; background: var(--bg); color: var(--text); outline: none; }
+    .search-wrap input:focus { border-color: var(--green); }
+    .search-wrap input::placeholder { color: var(--text3); }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); pointer-events: none; }
+
+    /* progress */
+    .progress-bar { height: 4px; background: var(--bg2); border-radius: 2px; margin-bottom: 6px; }
+    .progress-fill { height: 100%; border-radius: 2px; background: var(--green); transition: width 0.3s; }
+    .progress-text { font-size: 12px; color: var(--text2); margin-bottom: 1rem; }
+    .toggle-link { font-size: 13px; color: var(--green); cursor: pointer; border: none; background: none; font-family: inherit; padding: 0; }
+    .toggle-link:hover { text-decoration: underline; }
+
+    /* table */
+    table { width: 100%; border-collapse: collapse; }
+    th { font-size: 12px; font-weight: 500; color: var(--text2); text-align: left; padding: 8px 12px; border-bottom: 0.5px solid var(--border); }
+    td { padding: 11px 12px; border-bottom: 0.5px solid var(--border); font-size: 15px; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg2); }
+    .word-en { font-weight: 500; }
+    .day-badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--bg2); color: var(--text3); border: 0.5px solid var(--border); display: inline-block; margin-top: 3px; }
+    .meaning { display: inline-block; cursor: pointer; user-select: none; border-radius: 4px; padding: 2px 8px; transition: background 0.15s; min-width: 60px; }
+    .meaning.hidden { background: var(--bg2); color: transparent; border: 0.5px solid var(--border2); }
+    .meaning.visible { color: var(--text); }
+    .action-cell { display: flex; align-items: center; gap: 2px; }
+    .icon-btn { background: none; border: none; cursor: pointer; font-size: 18px; padding: 3px 5px; border-radius: 4px; line-height: 1; transition: color 0.15s, background 0.15s; color: var(--text3); }
+    .icon-btn:hover { background: var(--bg2); }
+    .bookmark-btn { color: var(--text3); font-size: 16px; }
+    .bookmark-btn.bookmarked { color: var(--amber); }
+    .bookmark-btn:hover { color: var(--amber); }
+    tr.bookmarked-row td { background: rgba(239,159,39,0.06); }
+    tr.bookmarked-row td:first-child { border-left: 3px solid var(--amber); padding-left: 9px; }
+    tr.bookmarked-row:hover td { background: rgba(239,159,39,0.11); }
+    .del-btn:hover { color: var(--red); }
+    .empty { text-align: center; padding: 3rem 1rem; color: var(--text3); font-size: 14px; }
+    .sec-add { display: none; }
+    .sec-add.active { display: block; }
+
+    @media (max-width: 520px) {
+      .container { padding: 1.25rem; }
+      .add-form { flex-direction: column; }
+      .add-form select { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <button class="toggle-link" id="toggle-all-btn">뜻 모두 보기</button>
+  </div>
+
+  <!-- 탭 -->
+  <div class="tabs">
+    <button class="tab active" data-tab="all">전체 단어</button>
+    <button class="tab" data-tab="bookmarks">⭐ 북마크</button>
+  </div>
+
+  <!-- Day 선택바 -->
+  <div class="day-bar">
+    <label>Day</label>
+    <div class="day-scroll" id="day-scroll"></div>
+  </div>
+
+  <!-- 단어 추가 (전체 탭에서만) -->
+  <div class="sec-add active" id="sec-add">
+    <div class="add-form">
+      <input type="text" id="inp-en" placeholder="영어 단어" autocomplete="off" />
+      <input type="text" id="inp-ko" placeholder="뜻" autocomplete="off" />
+      <select id="inp-day"></select>
+      <button class="btn btn-green" id="add-btn">+ 추가</button>
+    </div>
+    <p class="hint">Enter 키로도 추가할 수 있어요.</p>
+  </div>
+
+  <!-- 검색 -->
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="단어 검색..." autocomplete="off" />
+  </div>
+
+  <!-- 진도 -->
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="progress-text" id="prog-text"></div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>영어 단어</th>
+        <th>뜻 (클릭해서 보기/가리기)</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="word-body"></tbody>
+  </table>
+  <div class="empty" id="empty-msg"></div>
+</div>
+
+<script>
+  const TOTAL_DAYS = 50;
+
+  let words = JSON.parse(localStorage.getItem("vocab_words") || "[]");
+  let bookmarks = new Set(JSON.parse(localStorage.getItem("vocab_bookmarks") || "[]"));
+  let revealed = new Set();
+  let allVisible = false;
+  let currentTab = "all";
+  let currentDay = 0; // 0 = 전체
+
+  // Day 선택 드롭다운 채우기
+  const inpDay = document.getElementById("inp-day");
+  for (let d = 1; d <= TOTAL_DAYS; d++) {
+    const opt = document.createElement("option");
+    opt.value = d;
+    opt.textContent = "Day " + d;
+    inpDay.appendChild(opt);
+  }
+
+  // Day 버튼 바 생성
+  function buildDayBar() {
+    const scroll = document.getElementById("day-scroll");
+    scroll.innerHTML = "";
+
+    // "전체" 버튼
+    const allBtn = document.createElement("button");
+    allBtn.className = "day-btn" + (currentDay === 0 ? " active" : "");
+    allBtn.textContent = "전체";
+    allBtn.addEventListener("click", () => { currentDay = 0; revealed = new Set(); render(); buildDayBar(); });
+    scroll.appendChild(allBtn);
+
+    for (let d = 1; d <= TOTAL_DAYS; d++) {
+      const hasWords = words.some(w => w.day === d);
+      const btn = document.createElement("button");
+      btn.className = "day-btn" + (hasWords ? " has-words" : "") + (currentDay === d ? " active" : "");
+      btn.textContent = "Day " + d;
+      const day = d;
+      btn.addEventListener("click", () => {
+        currentDay = day;
+        revealed = new Set();
+        render();
+        buildDayBar();
+      });
+      scroll.appendChild(btn);
+    }
+  }
+
+  function save() {
+    localStorage.setItem("vocab_words", JSON.stringify(words));
+    localStorage.setItem("vocab_bookmarks", JSON.stringify([...bookmarks]));
+  }
+
+  function getFiltered() {
+    const q = document.getElementById("search-input").value.trim().toLowerCase();
+    return words.reduce((acc, w, i) => {
+      const matchQ = !q || w.en.toLowerCase().includes(q) || w.ko.includes(q);
+      const matchTab = currentTab === "all" || bookmarks.has(i);
+      const matchDay = currentDay === 0 || w.day === currentDay;
+      if (matchQ && matchTab && matchDay) acc.push({ w, i });
+      return acc;
+    }, []);
+  }
+
+  function updateProgress() {
+    const filtered = getFiltered();
+    const total = filtered.length;
+    const done = filtered.filter(({ i }) => allVisible || revealed.has(i)).length;
+    const pct = total ? Math.round(done / total * 100) : 0;
+    document.getElementById("prog-fill").style.width = pct + "%";
+    document.getElementById("prog-text").textContent = total ? `확인한 단어: ${done} / ${total}` : "";
+  }
+
+  function render() {
+    const filtered = getFiltered();
+    const tbody = document.getElementById("word-body");
+    const emptyMsg = document.getElementById("empty-msg");
+    tbody.innerHTML = "";
+
+    if (filtered.length === 0) {
+      emptyMsg.style.display = "";
+      if (currentTab === "bookmarks") emptyMsg.textContent = "북마크한 단어가 없어요. ⭐ 버튼으로 추가해 보세요!";
+      else if (words.length === 0) emptyMsg.textContent = "아직 단어가 없어요. 위에서 추가해 보세요!";
+      else if (currentDay > 0) emptyMsg.textContent = `Day ${currentDay}에 단어가 없어요. 단어를 추가해 보세요!`;
+      else emptyMsg.textContent = "검색 결과가 없어요.";
+    } else {
+      emptyMsg.style.display = "none";
+    }
+
+    // 전체 탭에서 Day별로 정렬
+    const sorted = [...filtered].sort((a, b) => (a.w.day || 1) - (b.w.day || 1));
+
+    sorted.forEach(({ w, i }) => {
+      const vis = allVisible || revealed.has(i);
+      const isBookmarked = bookmarks.has(i);
+      const tr = document.createElement("tr");
+      if (isBookmarked) tr.classList.add("bookmarked-row");
+      tr.innerHTML = `
+        <td class="word-en">
+          ${esc(w.en)}
+          ${currentDay === 0 ? `<br><span class="day-badge">Day ${w.day || 1}</span>` : ""}
+        </td>
+        <td><span class="meaning ${vis ? "visible" : "hidden"}" data-idx="${i}">${esc(w.ko)}</span></td>
+        <td><div class="action-cell">
+          <button class="icon-btn bookmark-btn ${isBookmarked ? "bookmarked" : ""}" data-idx="${i}" title="${isBookmarked ? "북마크 해제" : "북마크 추가"}">⭐</button>
+          <button class="icon-btn del-btn" data-idx="${i}" title="삭제">✕</button>
+        </div></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    tbody.querySelectorAll(".meaning").forEach(el => {
+      el.addEventListener("click", function () {
+        const idx = parseInt(this.dataset.idx);
+        if (allVisible) return;
+        if (revealed.has(idx)) { revealed.delete(idx); this.className = "meaning hidden"; }
+        else { revealed.add(idx); this.className = "meaning visible"; }
+        updateProgress();
+      });
+    });
+
+    tbody.querySelectorAll(".bookmark-btn").forEach(el => {
+      el.addEventListener("click", function () {
+        const idx = parseInt(this.dataset.idx);
+        const row = this.closest("tr");
+        if (bookmarks.has(idx)) {
+          bookmarks.delete(idx); this.classList.remove("bookmarked");
+          this.title = "북마크 추가"; row.classList.remove("bookmarked-row");
+        } else {
+          bookmarks.add(idx); this.classList.add("bookmarked");
+          this.title = "북마크 해제"; row.classList.add("bookmarked-row");
+        }
+        save();
+        if (currentTab === "bookmarks") render();
+      });
+    });
+
+    tbody.querySelectorAll(".del-btn").forEach(el => {
+      el.addEventListener("click", function () {
+        const idx = parseInt(this.dataset.idx);
+        words.splice(idx, 1);
+        bookmarks = new Set([...bookmarks].filter(r => r !== idx).map(r => r > idx ? r - 1 : r));
+        revealed = new Set([...revealed].filter(r => r !== idx).map(r => r > idx ? r - 1 : r));
+        save();
+        buildDayBar();
+        render();
+      });
+    });
+
+    updateProgress();
+  }
+
+  function esc(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  function addWord() {
+    const en = document.getElementById("inp-en").value.trim();
+    const ko = document.getElementById("inp-ko").value.trim();
+    const day = parseInt(document.getElementById("inp-day").value);
+    if (!en || !ko) return;
+    words.push({ en, ko, day });
+    save();
+    document.getElementById("inp-en").value = "";
+    document.getElementById("inp-ko").value = "";
+    document.getElementById("inp-en").focus();
+    buildDayBar();
+    render();
+  }
+
+  document.getElementById("add-btn").addEventListener("click", addWord);
+  ["inp-en","inp-ko"].forEach(id => {
+    document.getElementById(id).addEventListener("keydown", e => { if (e.key === "Enter") addWord(); });
+  });
+  document.getElementById("search-input").addEventListener("input", render);
+  document.getElementById("toggle-all-btn").addEventListener("click", function () {
+    allVisible = !allVisible;
+    this.textContent = allVisible ? "뜻 모두 가리기" : "뜻 모두 보기";
+    render();
+  });
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", function () {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      this.classList.add("active");
+      currentTab = this.dataset.tab;
+      document.getElementById("sec-add").classList.toggle("active", currentTab === "all");
+      render();
+    });
+  });
+
+  // 현재 선택된 Day로 드롭다운 기본값 설정
+  if (currentDay > 0) inpDay.value = currentDay;
+
+  buildDayBar();
+  render();
+</script>
+</body>
+</html>
