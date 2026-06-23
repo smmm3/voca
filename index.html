@@ -62,12 +62,12 @@
     .toggle-link:hover { text-decoration: underline; }
     table { width: 100%; border-collapse: collapse; }
     th { font-size: 12px; font-weight: 500; color: var(--text2); text-align: left; padding: 8px 12px; border-bottom: 0.5px solid var(--border); }
-    td { padding: 11px 12px; border-bottom: 0.5px solid var(--border); font-size: 13px; vertical-align: middle; }  //뜻폰트사이즈
+    td { padding: 11px 12px; border-bottom: 0.5px solid var(--border); font-size: 15px; vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: var(--bg2); }
     .word-en { font-weight: 500; }
     .day-badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--bg2); color: var(--text3); border: 0.5px solid var(--border); display: inline-block; margin-top: 3px; }
-    .meaning { display: inline-block; cursor: pointer; user-select: none; border-radius: 4px; padding: 2px 8px; transition: background 0.15s; width: 280px; } //뜻박스길이
+    .meaning { display: inline-block; cursor: pointer; user-select: none; border-radius: 4px; padding: 2px 8px; transition: background 0.15s; width: 280px; }
     .meaning.hidden { background: var(--bg2); color: transparent; border: 0.5px solid var(--border2); }
     .meaning.visible { color: var(--text); }
     .action-cell { display: flex; align-items: center; gap: 2px; }
@@ -105,6 +105,10 @@
 <div class="container">
   <div class="header">
     <button class="toggle-link" id="toggle-all-btn">뜻 모두 보기</button>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button class="btn" id="export-btn">📤 내보내기</button>
+      <label class="btn" style="cursor:pointer;">📥 불러오기<input type="file" id="import-input" accept=".json" style="display:none;"></label>
+    </div>
   </div>
 
   <div class="tabs">
@@ -373,6 +377,42 @@
       editingIdx = -1;
       render();
     });
+  });
+
+  // 내보내기
+  document.getElementById("export-btn").addEventListener("click", () => {
+    const data = { words, bookmarks: [...bookmarks] };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "vocab_backup.json";
+    a.click();
+  });
+
+  // 불러오기
+  document.getElementById("import-input").addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (!Array.isArray(data.words)) { alert("올바른 파일이 아니에요."); return; }
+        if (!confirm("불러오면 현재 단어장이 교체돼요. 계속할까요?")) return;
+        words = data.words;
+        bookmarks = new Set(Array.isArray(data.bookmarks) ? data.bookmarks : []);
+        revealed = new Set();
+        editingIdx = -1;
+        save();
+        buildDayBar();
+        render();
+        alert("불러오기 완료!");
+      } catch {
+        alert("파일을 읽을 수 없어요.");
+      }
+    };
+    reader.readAsText(file);
+    this.value = "";
   });
 
   buildDayBar();
