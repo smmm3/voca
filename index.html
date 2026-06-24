@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="ko" data-hwp-extension="rhwp" data-hwp-extension-version="0.2.6"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>github.io/E</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -159,14 +157,14 @@
 
   <div class="day-bar">
     <label>Day</label>
-    <div class="day-scroll" id="day-scroll"></div>
+    <div class="day-scroll" id="day-scroll"><button class="day-btn active">전체</button><button class="day-btn has-words">Day 1</button><button class="day-btn">Day 2</button><button class="day-btn">Day 3</button><button class="day-btn">Day 4</button><button class="day-btn">Day 5</button><button class="day-btn">Day 6</button><button class="day-btn">Day 7</button><button class="day-btn">Day 8</button><button class="day-btn">Day 9</button><button class="day-btn">Day 10</button><button class="day-btn">Day 11</button><button class="day-btn">Day 12</button><button class="day-btn">Day 13</button><button class="day-btn">Day 14</button><button class="day-btn">Day 15</button><button class="day-btn">Day 16</button><button class="day-btn">Day 17</button><button class="day-btn">Day 18</button><button class="day-btn">Day 19</button><button class="day-btn">Day 20</button><button class="day-btn">Day 21</button><button class="day-btn">Day 22</button><button class="day-btn">Day 23</button><button class="day-btn">Day 24</button><button class="day-btn">Day 25</button><button class="day-btn">Day 26</button><button class="day-btn">Day 27</button><button class="day-btn">Day 28</button><button class="day-btn">Day 29</button><button class="day-btn">Day 30</button><button class="day-btn">Day 31</button><button class="day-btn">Day 32</button><button class="day-btn">Day 33</button><button class="day-btn">Day 34</button><button class="day-btn">Day 35</button><button class="day-btn">Day 36</button><button class="day-btn">Day 37</button><button class="day-btn">Day 38</button><button class="day-btn">Day 39</button><button class="day-btn">Day 40</button><button class="day-btn">Day 41</button><button class="day-btn">Day 42</button><button class="day-btn">Day 43</button><button class="day-btn">Day 44</button><button class="day-btn">Day 45</button><button class="day-btn">Day 46</button><button class="day-btn">Day 47</button><button class="day-btn">Day 48</button><button class="day-btn">Day 49</button><button class="day-btn">Day 50</button></div>
   </div>
 
   <div class="sec-add active" id="sec-add">
     <div class="add-form">
-      <input type="text" id="inp-en" placeholder="영어 단어" autocomplete="off" />
-      <input type="text" id="inp-ko" placeholder="뜻" autocomplete="off" />
-      <select id="inp-day"></select>
+      <input type="text" id="inp-en" placeholder="영어 단어" autocomplete="off">
+      <input type="text" id="inp-ko" placeholder="뜻" autocomplete="off">
+      <select id="inp-day"><option value="1">Day 1</option><option value="2">Day 2</option><option value="3">Day 3</option><option value="4">Day 4</option><option value="5">Day 5</option><option value="6">Day 6</option><option value="7">Day 7</option><option value="8">Day 8</option><option value="9">Day 9</option><option value="10">Day 10</option><option value="11">Day 11</option><option value="12">Day 12</option><option value="13">Day 13</option><option value="14">Day 14</option><option value="15">Day 15</option><option value="16">Day 16</option><option value="17">Day 17</option><option value="18">Day 18</option><option value="19">Day 19</option><option value="20">Day 20</option><option value="21">Day 21</option><option value="22">Day 22</option><option value="23">Day 23</option><option value="24">Day 24</option><option value="25">Day 25</option><option value="26">Day 26</option><option value="27">Day 27</option><option value="28">Day 28</option><option value="29">Day 29</option><option value="30">Day 30</option><option value="31">Day 31</option><option value="32">Day 32</option><option value="33">Day 33</option><option value="34">Day 34</option><option value="35">Day 35</option><option value="36">Day 36</option><option value="37">Day 37</option><option value="38">Day 38</option><option value="39">Day 39</option><option value="40">Day 40</option><option value="41">Day 41</option><option value="42">Day 42</option><option value="43">Day 43</option><option value="44">Day 44</option><option value="45">Day 45</option><option value="46">Day 46</option><option value="47">Day 47</option><option value="48">Day 48</option><option value="49">Day 49</option><option value="50">Day 50</option></select>
       <button class="btn btn-green" id="add-btn">+ 추가</button>
     </div>
     <p class="hint">Enter 키로도 추가할 수 있어요.</p>
@@ -174,11 +172,11 @@
 
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input type="text" id="search-input" placeholder="단어 검색..." autocomplete="off" />
+    <input type="text" id="search-input" placeholder="단어 검색..." autocomplete="off">
   </div>
 
-  <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-  <div class="progress-text" id="prog-text"></div>
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width: 0%;"></div></div>
+  <div class="progress-text" id="prog-text">확인한 단어: 0 / 3</div>
 
   <table>
     <thead>
@@ -188,15 +186,15 @@
         <th></th>
       </tr>
     </thead>
-    <tbody id="word-body"></tbody>
+    <tbody id="word-body"><tr><td class="word-en">respect<br><span class="day-badge">Day 1</span></td><td><span class="meaning hidden" data-idx="0">[동] 존경하다 [명] ① 존경 ② (측)면</span></td><td><div class="action-cell"><button class="icon-btn bookmark-btn " data-idx="0" title="북마크 추가">⭐</button><button class="icon-btn edit-btn" data-idx="0" title="편집">✏️</button><button class="icon-btn del-btn" data-idx="0" title="삭제">✕</button></div></td></tr><tr><td class="word-en">indicate<br><span class="day-badge">Day 1</span></td><td><span class="meaning hidden" data-idx="1">[동] ① 나타내다, 암시하다 ② 지시하다, 가리키다</span></td><td><div class="action-cell"><button class="icon-btn bookmark-btn " data-idx="1" title="북마크 추가">⭐</button><button class="icon-btn edit-btn" data-idx="1" title="편집">✏️</button><button class="icon-btn del-btn" data-idx="1" title="삭제">✕</button></div></td></tr><tr><td class="word-en">improvise<br><span class="day-badge">Day 1</span></td><td><span class="meaning hidden" data-idx="2">[동] 즉흥적으로 하다</span></td><td><div class="action-cell"><button class="icon-btn bookmark-btn " data-idx="2" title="북마크 추가">⭐</button><button class="icon-btn edit-btn" data-idx="2" title="편집">✏️</button><button class="icon-btn del-btn" data-idx="2" title="삭제">✕</button></div></td></tr></tbody>
   </table>
-  <div class="empty" id="empty-msg"></div>
+  <div class="empty" id="empty-msg" style="display: none;"></div>
 </div>
 
 <script>
   const TOTAL_DAYS = 50;
-  let words = JSON.parse(localStorage.getItem("vocab_words") || "[]");
-  let bookmarks = new Set(JSON.parse(localStorage.getItem("vocab_bookmarks") || "[]"));
+  let words = JSON.parse(localStorage.getItem("vocab_words") || '[{"en":"respect","ko":"[동] 존경하다 [명] ① 존경 ② (측)면","day":1},{"en":"indicate","ko":"[동] ① 나타내다, 암시하다 ② 지시하다, 가리키다","day":1},{"en":"improvise","ko":"[동] 즉흥적으로 하다","day":1}]');
+  let bookmarks = new Set(JSON.parse(localStorage.getItem("vocab_bookmarks") || '[]'));
   let revealed = new Set();
   let allVisible = false;
   let currentTab = "all";
@@ -430,5 +428,6 @@
   buildDayBar();
   render();
 </script>
-</body>
-</html>
+
+
+</body><whale-quicksearch translate="no" style="visibility: visible;"></whale-quicksearch></html>
