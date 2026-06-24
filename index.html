@@ -352,7 +352,7 @@
         if (isBookmarked) tr.classList.add("bookmarked-row");
         tr.innerHTML =
           '<td class="word-en">' + esc(w.en) +
-            (currentDay === 0 ? '<br><span class="day-badge">Day ' + (w.day || 1) + '</span>' : '') +
+            (currentDay === 0 ? '<br><span class="day-badge">' + (words.filter(x => x.day === w.day).indexOf(w) + 1) + ' / ' + words.filter(x => x.day === w.day).length + '</span>' : '') +
           '</td>' +
           '<td><span class="meaning ' + (vis ? "visible" : "hidden") + '" data-idx="' + i + '">' + esc(w.ko) + '</span></td>' +
           '<td><div class="action-cell">' +
