@@ -146,8 +146,9 @@
     <button class="toggle-link" id="toggle-all-btn">뜻 모두 가리기</button>
     <div class="header-btns">
 
-     <button class="btn" id="export-btn">📤 내보내기</button>
+    <button class="btn" id="shuffle-btn">🔀 랜덤</button> <button class="btn" id="export-btn">📤 내보내기</button>
 <label class="btn" style="cursor:pointer;">📥 불러오기<input type="file" id="import-input" accept=".json" style="display:none;"></label>
+      
     </div>
   </div>
 
@@ -417,7 +418,20 @@
 
   // 💾 파일로 저장 — 단어가 내장된 HTML 다운로드
 
+  // 랜덤
+document.getElementById("shuffle-btn").addEventListener("click", () => {
+  words.sort(() => Math.random() - 0.5);
+  render();
+});
 
+
+
+
+
+
+
+
+  
    // 📤 내보내기
   document.getElementById("export-btn").addEventListener("click", () => {
     const data = { words, bookmarks: [...bookmarks] };
