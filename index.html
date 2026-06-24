@@ -145,7 +145,7 @@
   <div class="header">
     <button class="toggle-link" id="toggle-all-btn">뜻 모두 가리기</button>
     <div class="header-btns">
-      <button class="btn btn-save" id="save-file-btn">💾 파일로 저장</button>
+     <button class="btn btn-save" id="save-file-btn">💾 파일로 저장</button>
      <button class="btn" id="export-btn">📤 내보내기</button>
 <label class="btn" style="cursor:pointer;">📥 불러오기<input type="file" id="import-input" accept=".json" style="display:none;"></label>
     </div>
@@ -389,25 +389,25 @@ let words = data.words;
   }
 
   // 💾 파일로 저장 — 단어가 내장된 HTML 다운로드
-document.getElementById("save-file-btn").addEventListener("click", () => {
-    const wordData = JSON.stringify(words);
-    const bmData = JSON.stringify([...bookmarks]);
-    const currentHtml = document.documentElement.outerHTML;
+//document.getElementById("save-file-btn").addEventListener("click", () => {
+    //const wordData = JSON.stringify(words);
+    //const bmData = JSON.stringify([...bookmarks]);
+    //const currentHtml = document.documentElement.outerHTML;
     // 스크립트 내 초기값 교체
-    const updated = currentHtml
-      .replace(
-        /let words = JSON\.parse\(localStorage\.getItem\("vocab_words"\) \|\| "\[\]"\);/,
-        'let words = JSON.parse(localStorage.getItem("vocab_words") || \'' + wordData.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\');'
+    //const updated = currentHtml
+      //.replace(
+        ///let words = JSON\.parse\(localStorage\.getItem\("vocab_words"\) \|\| "\[\]"\);/,
+        //'let words = JSON.parse(localStorage.getItem("vocab_words") || \'' + wordData.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\');'
       )
-      .replace(
-        /let bookmarks = new Set\(JSON\.parse\(localStorage\.getItem\("vocab_bookmarks"\) \|\| "\[\]"\)\);/,
-        'let bookmarks = new Set(JSON.parse(localStorage.getItem("vocab_bookmarks") || \'' + bmData.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\'));'
+      //.replace(
+        ///let bookmarks = new Set\(JSON\.parse\(localStorage\.getItem\("vocab_bookmarks"\) \|\| "\[\]"\)\);/,
+        //'let bookmarks = new Set(JSON.parse(localStorage.getItem("vocab_bookmarks") || \'' + bmData.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\'));'
       );
-    const blob = new Blob([updated], { type: "text/html" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "index.html";
-    a.click();
+    //const blob = new Blob([updated], { type: "text/html" });
+    //const a = document.createElement("a");
+    //a.href = URL.createObjectURL(blob);
+    //a.download = "index.html";
+    //a.click();
   });
 
    // 📤 내보내기
