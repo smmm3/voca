@@ -193,8 +193,10 @@
 
 <script>
   const TOTAL_DAYS = 50;
-  let words = JSON.parse(localStorage.getItem("vocab_words") || '[{"en":"respect","ko":"[동] 존경하다 [명] ① 존경 ② (측)면","day":1},{"en":"indicate","ko":"[동] ① 나타내다, 암시하다 ② 지시하다, 가리키다","day":1},{"en":"improvise","ko":"[동] 즉흥적으로 하다","day":1}]');
-  let bookmarks = new Set(JSON.parse(localStorage.getItem("vocab_bookmarks") || '[]'));
+const EMBEDDED_WORDS = [];
+const EMBEDDED_BOOKMARKS = [];
+let words = EMBEDDED_WORDS.length > 0 ? EMBEDDED_WORDS : JSON.parse(localStorage.getItem("vocab_words") || "[]");
+let bookmarks = new Set(EMBEDDED_BOOKMARKS.length > 0 ? EMBEDDED_BOOKMARKS : JSON.parse(localStorage.getItem("vocab_bookmarks") || "[]"));
   let revealed = new Set();
   let allVisible = false;
   let currentTab = "all";
@@ -388,14 +390,14 @@
     const currentHtml = document.documentElement.outerHTML;
     // 스크립트 내 초기값 교체
     const updated = currentHtml
-      .replace(
-        /let words = JSON\.parse\(localStorage\.getItem\("vocab_words"\) \|\| "\[\]"\);/,
-        'let words = JSON.parse(localStorage.getItem("vocab_words") || \'' + wordData.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\');'
-      )
-      .replace(
-        /let bookmarks = new Set\(JSON\.parse\(localStorage\.getItem\("vocab_bookmarks"\) \|\| "\[\]"\)\);/,
-        'let bookmarks = new Set(JSON.parse(localStorage.getItem("vocab_bookmarks") || \'' + bmData.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\'));'
-      );
+ js.replace(
+  /const EMBEDDED_WORDS = \[.*?\];/s,
+  'const EMBEDDED_WORDS = ' + wordData + ';'
+)
+.replace(
+  /const EMBEDDED_BOOKMARKS = \[.*?\];/s,
+  'const EMBEDDED_BOOKMARKS = ' + bmData + ';'
+)
     const blob = new Blob([updated], { type: "text/html" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
