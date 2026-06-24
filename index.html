@@ -21,14 +21,21 @@
         --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.2);
       }
     }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg3); color: var(--text); min-height: 100vh; padding: 2rem 1rem; }
-    .container { max-width: 760px; margin: 0 auto; background: var(--bg); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 2rem; }
-    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg3); color: var(--text); min-height: 100vh; padding: 1.5rem 0.75rem; }
+    .container { max-width: 760px; margin: 0 auto; background: var(--bg); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 1.5rem; }
+
+    /* header */
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 8px; }
+    .header-btns { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+
+    /* tabs */
     .tabs { display: flex; gap: 4px; margin-bottom: 1.25rem; border-bottom: 0.5px solid var(--border); }
-    .tab { padding: 7px 16px; font-size: 13px; border: none; background: none; cursor: pointer; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -0.5px; font-family: inherit; transition: color 0.15s; }
+    .tab { padding: 7px 14px; font-size: 13px; border: none; background: none; cursor: pointer; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -0.5px; font-family: inherit; transition: color 0.15s; }
     .tab.active { color: var(--green); border-bottom-color: var(--green); font-weight: 500; }
     .tab:hover:not(.active) { color: var(--text); }
-    .day-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+
+    /* day bar */
+    .day-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; }
     .day-bar label { font-size: 13px; color: var(--text2); white-space: nowrap; flex-shrink: 0; }
     .day-scroll { display: flex; gap: 6px; overflow-x: scroll; padding-bottom: 6px; flex: 1; min-width: 0; scrollbar-width: thin; scrollbar-color: var(--border2) transparent; }
     .day-scroll::-webkit-scrollbar { height: 4px; }
@@ -39,65 +46,99 @@
     .day-btn.active { background: var(--green); color: #fff; border-color: var(--green); font-weight: 500; }
     .day-btn.has-words { border-color: var(--green); color: var(--green); }
     .day-btn.has-words.active { background: var(--green); color: #fff; }
+
+    /* add form */
     .add-form { display: flex; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
     .add-form input, .add-form select { padding: 9px 13px; border: 0.5px solid var(--border2); border-radius: var(--radius); font-size: 14px; background: var(--bg); color: var(--text); outline: none; transition: border-color 0.15s; font-family: inherit; }
-    .add-form input { flex: 1; min-width: 100px; }
-    .add-form select { min-width: 90px; cursor: pointer; }
+    .add-form input { flex: 1; min-width: 90px; }
+    .add-form select { min-width: 88px; cursor: pointer; }
     .add-form input:focus, .add-form select:focus { border-color: var(--green); }
     .add-form input::placeholder { color: var(--text3); }
-    .btn { padding: 9px 16px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; white-space: nowrap; font-family: inherit; transition: background 0.15s; }
+    .btn { padding: 8px 14px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; white-space: nowrap; font-family: inherit; transition: background 0.15s; }
     .btn:hover { background: var(--bg2); }
     .btn-green { background: var(--green); color: #fff; border-color: var(--green); }
     .btn-green:hover { background: var(--green-dark); border-color: var(--green-dark); }
     .hint { font-size: 12px; color: var(--text3); margin-bottom: 1.25rem; }
+
+    /* search */
     .search-wrap { position: relative; margin-bottom: 1rem; }
-    .search-wrap input { width: 100%; padding: 9px 13px 9px 38px; border: 0.5px solid var(--border2); border-radius: var(--radius); font-size: 14px; background: var(--bg); color: var(--text); outline: none; }
+    .search-wrap input { width: 100%; padding: 9px 13px 9px 36px; border: 0.5px solid var(--border2); border-radius: var(--radius); font-size: 14px; background: var(--bg); color: var(--text); outline: none; }
     .search-wrap input:focus { border-color: var(--green); }
     .search-wrap input::placeholder { color: var(--text3); }
-    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); pointer-events: none; }
+    .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--text3); pointer-events: none; font-size: 14px; }
+
+    /* progress */
     .progress-bar { height: 4px; background: var(--bg2); border-radius: 2px; margin-bottom: 6px; }
     .progress-fill { height: 100%; border-radius: 2px; background: var(--green); transition: width 0.3s; }
     .progress-text { font-size: 12px; color: var(--text2); margin-bottom: 1rem; }
-    .toggle-link { font-size: 13px; color: var(--green); cursor: pointer; border: none; background: none; font-family: inherit; padding: 0; }
+    .toggle-link { font-size: 13px; color: var(--green); cursor: pointer; border: none; background: none; font-family: inherit; padding: 0; white-space: nowrap; }
     .toggle-link:hover { text-decoration: underline; }
+
+    /* table - desktop */
     table { width: 100%; border-collapse: collapse; }
-    th { font-size: 12px; font-weight: 500; color: var(--text2); text-align: left; padding: 8px 12px; border-bottom: 0.5px solid var(--border); }
-    td { padding: 11px 12px; border-bottom: 0.5px solid var(--border); font-size: 15px; vertical-align: middle; }
+    th { font-size: 12px; font-weight: 500; color: var(--text2); text-align: left; padding: 8px 10px; border-bottom: 0.5px solid var(--border); }
+    td { padding: 10px; border-bottom: 0.5px solid var(--border); font-size: 13px; vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: var(--bg2); }
-    .word-en { font-weight: 500; }
-    .day-badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--bg2); color: var(--text3); border: 0.5px solid var(--border); display: inline-block; margin-top: 3px; }
-    .meaning { display: inline-block; cursor: pointer; user-select: none; border-radius: 4px; padding: 2px 8px; transition: background 0.15s; width: 280px; }
+    .word-en { font-weight: 500; font-size: 14px; }
+    .day-badge { font-size: 10px; padding: 1px 7px; border-radius: 20px; background: var(--bg2); color: var(--text3); border: 0.5px solid var(--border); display: inline-block; margin-top: 3px; }
+    .meaning { display: inline-block; cursor: pointer; user-select: none; border-radius: 4px; padding: 2px 8px; transition: background 0.15s; width: 140px; font-size: 13px; }
     .meaning.hidden { background: var(--bg2); color: transparent; border: 0.5px solid var(--border2); }
     .meaning.visible { color: var(--text); }
-    .action-cell { display: flex; align-items: center; gap: 2px; }
-    .icon-btn { background: none; border: none; cursor: pointer; font-size: 18px; padding: 3px 5px; border-radius: 4px; line-height: 1; transition: color 0.15s, background 0.15s; color: var(--text3); }
+    .action-cell { display: flex; align-items: center; gap: 1px; }
+    .icon-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 3px 4px; border-radius: 4px; line-height: 1; transition: color 0.15s, background 0.15s; color: var(--text3); }
     .icon-btn:hover { background: var(--bg2); }
-    .bookmark-btn { color: var(--text3); font-size: 16px; }
+    .bookmark-btn { color: var(--text3); font-size: 14px; }
     .bookmark-btn.bookmarked { color: var(--amber); }
     .bookmark-btn:hover { color: var(--amber); }
     .edit-btn:hover { color: var(--blue); }
     .del-btn:hover { color: var(--red); }
     tr.bookmarked-row td { background: rgba(239,159,39,0.06); }
-    tr.bookmarked-row td:first-child { border-left: 3px solid var(--amber); padding-left: 9px; }
+    tr.bookmarked-row td:first-child { border-left: 3px solid var(--amber); padding-left: 7px; }
     tr.bookmarked-row:hover td { background: rgba(239,159,39,0.11); }
-    tr.editing-row td { background: rgba(55,138,221,0.05); padding-top: 8px; padding-bottom: 8px; }
-    tr.editing-row td:first-child { border-left: 3px solid var(--blue); padding-left: 9px; }
+    tr.editing-row td { background: rgba(55,138,221,0.05); padding-top: 7px; padding-bottom: 7px; }
+    tr.editing-row td:first-child { border-left: 3px solid var(--blue); padding-left: 7px; }
     .edit-inputs { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-    .edit-inputs input, .edit-inputs select { padding: 6px 10px; border: 0.5px solid var(--border2); border-radius: var(--radius); font-size: 14px; background: var(--bg); color: var(--text); outline: none; font-family: inherit; min-width: 80px; }
+    .edit-inputs input, .edit-inputs select { padding: 6px 10px; border: 0.5px solid var(--border2); border-radius: var(--radius); font-size: 13px; background: var(--bg); color: var(--text); outline: none; font-family: inherit; min-width: 70px; }
     .edit-inputs input { flex: 1; }
     .edit-inputs input:focus, .edit-inputs select:focus { border-color: var(--blue); }
-    .edit-save { padding: 6px 13px; font-size: 12px; border-radius: var(--radius); border: none; background: var(--green); color: #fff; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .edit-save { padding: 6px 12px; font-size: 12px; border-radius: var(--radius); border: none; background: var(--green); color: #fff; cursor: pointer; font-family: inherit; white-space: nowrap; }
     .edit-save:hover { background: var(--green-dark); }
-    .edit-cancel { padding: 6px 13px; font-size: 12px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: var(--bg); color: var(--text2); cursor: pointer; font-family: inherit; }
+    .edit-cancel { padding: 6px 12px; font-size: 12px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: var(--bg); color: var(--text2); cursor: pointer; font-family: inherit; }
     .edit-cancel:hover { background: var(--bg2); }
     .empty { text-align: center; padding: 3rem 1rem; color: var(--text3); font-size: 14px; }
     .sec-add { display: none; }
     .sec-add.active { display: block; }
-    @media (max-width: 520px) {
-      .container { padding: 1.25rem; }
+
+    /* 파일로 저장 버튼 */
+    .btn-save { background: #5856D6; color: #fff; border-color: #5856D6; }
+    .btn-save:hover { background: #3f3eb8; border-color: #3f3eb8; }
+
+    /* 모바일 최적화 */
+    @media (max-width: 540px) {
+      body { padding: 0; }
+      .container { border-radius: 0; border-left: none; border-right: none; padding: 1rem 0.875rem; min-height: 100vh; }
       .add-form { flex-direction: column; }
       .add-form select { width: 100%; }
+      .header-btns .btn { font-size: 12px; padding: 6px 10px; }
+
+      /* 모바일: 테이블 대신 카드형 */
+      thead { display: none; }
+      table, tbody, tr, td { display: block; width: 100%; }
+      tr { border-bottom: 0.5px solid var(--border); padding: 10px 0; position: relative; }
+      tr:last-child { border-bottom: none; }
+      tr:hover td { background: transparent; }
+      td { border-bottom: none; padding: 2px 0; font-size: 13px; }
+      .word-en { font-size: 15px; font-weight: 600; padding-bottom: 4px; }
+      .meaning { width: 100%; display: block; margin-top: 4px; text-align: center; padding: 6px 8px; }
+      .meaning.hidden { width: 100%; }
+      .action-cell { position: absolute; top: 10px; right: 0; gap: 2px; }
+      tr.bookmarked-row { border-left: 3px solid var(--amber); padding-left: 8px; }
+      tr.bookmarked-row td:first-child { border-left: none; padding-left: 0; }
+      tr.editing-row { border-left: 3px solid var(--blue); padding-left: 8px; }
+      tr.editing-row td:first-child { border-left: none; padding-left: 0; }
+      .edit-inputs { flex-direction: column; }
+      .edit-inputs input, .edit-inputs select { width: 100%; }
     }
   </style>
 </head>
@@ -105,7 +146,8 @@
 <div class="container">
   <div class="header">
     <button class="toggle-link" id="toggle-all-btn">뜻 모두 보기</button>
-    <div style="display:flex;gap:8px;align-items:center;">
+    <div class="header-btns">
+      <button class="btn btn-save" id="save-file-btn">💾 파일로 저장</button>
       <button class="btn" id="export-btn">📤 내보내기</button>
       <label class="btn" style="cursor:pointer;">📥 불러오기<input type="file" id="import-input" accept=".json" style="display:none;"></label>
     </div>
@@ -232,7 +274,7 @@
       emptyMsg.style.display = "";
       if (currentTab === "bookmarks") emptyMsg.textContent = "북마크한 단어가 없어요. ⭐ 버튼으로 추가해 보세요!";
       else if (words.length === 0) emptyMsg.textContent = "아직 단어가 없어요. 위에서 추가해 보세요!";
-      else if (currentDay > 0) emptyMsg.textContent = "Day " + currentDay + "에 단어가 없어요. 단어를 추가해 보세요!";
+      else if (currentDay > 0) emptyMsg.textContent = "Day " + currentDay + "에 단어가 없어요.";
       else emptyMsg.textContent = "검색 결과가 없어요.";
     } else {
       emptyMsg.style.display = "none";
@@ -266,23 +308,15 @@
           if (!newEn || !newKo) return;
           words[i] = { en: newEn, ko: newKo, day: newDay };
           editingIdx = -1;
-          save();
-          buildDayBar();
-          render();
+          save(); buildDayBar(); render();
         });
-
-        tr.querySelector(".edit-cancel").addEventListener("click", () => {
-          editingIdx = -1;
-          render();
-        });
-
+        tr.querySelector(".edit-cancel").addEventListener("click", () => { editingIdx = -1; render(); });
         ["edit-en", "edit-ko"].forEach(cls => {
           tr.querySelector("." + cls).addEventListener("keydown", e => {
             if (e.key === "Enter") tr.querySelector(".edit-save").click();
             if (e.key === "Escape") { editingIdx = -1; render(); }
           });
         });
-
       } else {
         if (isBookmarked) tr.classList.add("bookmarked-row");
         tr.innerHTML =
@@ -303,7 +337,6 @@
           else { revealed.add(idx); this.className = "meaning visible"; }
           updateProgress();
         });
-
         tr.querySelector(".bookmark-btn").addEventListener("click", function () {
           const idx = parseInt(this.dataset.idx);
           const row = this.closest("tr");
@@ -317,16 +350,11 @@
           save();
           if (currentTab === "bookmarks") render();
         });
-
         tr.querySelector(".edit-btn").addEventListener("click", function () {
           editingIdx = parseInt(this.dataset.idx);
           render();
-          setTimeout(() => {
-            const enInput = document.querySelector(".edit-en");
-            if (enInput) enInput.focus();
-          }, 0);
+          setTimeout(() => { const el = document.querySelector(".edit-en"); if (el) el.focus(); }, 0);
         });
-
         tr.querySelector(".del-btn").addEventListener("click", function () {
           const idx = parseInt(this.dataset.idx);
           words.splice(idx, 1);
@@ -336,10 +364,8 @@
           save(); buildDayBar(); render();
         });
       }
-
       tbody.appendChild(tr);
     });
-
     updateProgress();
   }
 
@@ -358,6 +384,59 @@
     buildDayBar(); render();
   }
 
+  // 💾 파일로 저장 — 단어가 내장된 HTML 다운로드
+  document.getElementById("save-file-btn").addEventListener("click", () => {
+    const wordData = JSON.stringify(words);
+    const bmData = JSON.stringify([...bookmarks]);
+    const currentHtml = document.documentElement.outerHTML;
+    // 스크립트 내 초기값 교체
+    const updated = currentHtml
+      .replace(
+        /let words = JSON\.parse\(localStorage\.getItem\("vocab_words"\) \|\| "\[\]"\);/,
+        'let words = JSON.parse(localStorage.getItem("vocab_words") || \'' + wordData.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\');'
+      )
+      .replace(
+        /let bookmarks = new Set\(JSON\.parse\(localStorage\.getItem\("vocab_bookmarks"\) \|\| "\[\]"\)\);/,
+        'let bookmarks = new Set(JSON.parse(localStorage.getItem("vocab_bookmarks") || \'' + bmData.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\'));'
+      );
+    const blob = new Blob([updated], { type: "text/html" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "index.html";
+    a.click();
+  });
+
+  // 📤 내보내기
+  document.getElementById("export-btn").addEventListener("click", () => {
+    const data = { words, bookmarks: [...bookmarks] };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "vocab_backup.json";
+    a.click();
+  });
+
+  // 📥 불러오기
+  document.getElementById("import-input").addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (!Array.isArray(data.words)) { alert("올바른 파일이 아니에요."); return; }
+        if (!confirm("불러오면 현재 단어장이 교체돼요. 계속할까요?")) return;
+        words = data.words;
+        bookmarks = new Set(Array.isArray(data.bookmarks) ? data.bookmarks : []);
+        revealed = new Set(); editingIdx = -1;
+        save(); buildDayBar(); render();
+        alert("불러오기 완료!");
+      } catch { alert("파일을 읽을 수 없어요."); }
+    };
+    reader.readAsText(file);
+    this.value = "";
+  });
+
   document.getElementById("add-btn").addEventListener("click", addWord);
   ["inp-en","inp-ko"].forEach(id => {
     document.getElementById(id).addEventListener("keydown", e => { if (e.key === "Enter") addWord(); });
@@ -374,45 +453,8 @@
       this.classList.add("active");
       currentTab = this.dataset.tab;
       document.getElementById("sec-add").classList.toggle("active", currentTab === "all");
-      editingIdx = -1;
-      render();
+      editingIdx = -1; render();
     });
-  });
-
-  // 내보내기
-  document.getElementById("export-btn").addEventListener("click", () => {
-    const data = { words, bookmarks: [...bookmarks] };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "vocab_backup.json";
-    a.click();
-  });
-
-  // 불러오기
-  document.getElementById("import-input").addEventListener("change", function () {
-    const file = this.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      try {
-        const data = JSON.parse(e.target.result);
-        if (!Array.isArray(data.words)) { alert("올바른 파일이 아니에요."); return; }
-        if (!confirm("불러오면 현재 단어장이 교체돼요. 계속할까요?")) return;
-        words = data.words;
-        bookmarks = new Set(Array.isArray(data.bookmarks) ? data.bookmarks : []);
-        revealed = new Set();
-        editingIdx = -1;
-        save();
-        buildDayBar();
-        render();
-        alert("불러오기 완료!");
-      } catch {
-        alert("파일을 읽을 수 없어요.");
-      }
-    };
-    reader.readAsText(file);
-    this.value = "";
   });
 
   buildDayBar();
