@@ -419,11 +419,20 @@
   // 💾 파일로 저장 — 단어가 내장된 HTML 다운로드
 
   // 랜덤
+let isShuffled = false;
+let originalOrder = [];
+
 document.getElementById("shuffle-btn").addEventListener("click", () => {
-  words.sort(() => Math.random() - 0.5);
+  if (!isShuffled) {
+    originalOrder = [...words];
+    words.sort(() => Math.random() - 0.5);
+    isShuffled = true;
+  } else {
+    words = [...originalOrder];
+    isShuffled = false;
+  }
   render();
 });
-
 
 
 
