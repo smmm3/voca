@@ -382,7 +382,7 @@
   }
 
   // 💾 파일로 저장 — 단어가 내장된 HTML 다운로드
-  document.getElementById("save-file-btn").addEventListener("click", () => {
+document.getElementById("save-file-btn").addEventListener("click", () => {
     const wordData = JSON.stringify(words);
     const bmData = JSON.stringify([...bookmarks]);
     const currentHtml = document.documentElement.outerHTML;
